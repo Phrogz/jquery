@@ -199,7 +199,7 @@ jQuery.fn = jQuery.prototype = {
 
 	// Take an array of elements and push it onto the stack
 	// (returning the new matched element set)
-	pushStack: function( elems, name, selector ) {
+	  function( elems, name, selector ) {
 		// Build a new jQuery matched element set
 		var ret = jQuery();
 
@@ -216,7 +216,19 @@ jQuery.fn = jQuery.prototype = {
 		ret.context = this.context;
 
 		if ( name === "find" ) {
-			ret.selector = this.selector + (this.selector ? " " : "") + selector;
+			var combo1 = this.selector.indexOf(',')!=-1;
+			var combo2 = selector.indexOf(',')!=-1;
+			if (combo1 || combo2){
+				var selectors = [];
+				for ( var all1 = this.selector.split(/\s*,\s*/), i1 = 0, len1 = all1.length; i1 < len1; ++i1 ) {
+					for ( var all2 = selector.split(/\s*,\s*/), i2 = 0, len2 = all2.length; i2 < len2; ++i2 ) {
+						selectors[i1*len2+i2] = all1[i1]+" "+all2[i2];
+					}
+				}
+				ret.selector = selectors.join(',');
+			}else{
+				ret.selector = this.selector + (this.selector ? " " : "") + selector;
+			}
 		} else if ( name ) {
 			ret.selector = this.selector + "." + name + "(" + selector + ")";
 		}
