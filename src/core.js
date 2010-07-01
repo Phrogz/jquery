@@ -199,7 +199,7 @@ jQuery.fn = jQuery.prototype = {
 
 	// Take an array of elements and push it onto the stack
 	// (returning the new matched element set)
-	  function( elems, name, selector ) {
+	pushStack: function( elems, name, selector ) {
 		// Build a new jQuery matched element set
 		var ret = jQuery();
 
